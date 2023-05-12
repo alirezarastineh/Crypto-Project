@@ -37,6 +37,7 @@ function App() {
         </Routes>
         <Footer />
       </AuthContextProvider>
+      0
     </ThemeProvider>
   );
 }
