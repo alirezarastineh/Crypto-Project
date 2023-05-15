@@ -34,7 +34,7 @@ const Footer = () => {
                 <ThemeToggle />
               </div>
               <p className="text-center md:text-right">
-                Sign up for crypto news
+                Get our daily crypto news
               </p>
               <div className="py-4">
                 <form>
@@ -44,7 +44,7 @@ const Footer = () => {
                     placeholder="Enter your Email"
                   />
                   <button className="bg-button text-btnText px-4 p-2 w-full rounded-2xl shadow-xl hover:shadow-2xl md:w-auto my-2">
-                    Sign Up
+                    Sign Up for crypto news
                   </button>
                 </form>
               </div>

@@ -4,16 +4,32 @@ import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
   const { user } = UserAuth();
 
   const coinPath = doc(db, "users", `${user?.email}`);
+
   const saveCoin = async (a) => {
-    if (user?.email) {
-      setSavedCoin(true);
+    if (!user?.email) {
+      alert("Please sign in to save a coin to your watch list");
+      return;
+    }
+
+    if (savedCoin) {
+      await updateDoc(coinPath, {
+        watchList: arrayRemove({
+          id: coin.id,
+          name: coin.name,
+          image: coin.image,
+          rank: coin.market_cap_rank,
+          symbol: coin.symbol,
+        }),
+      });
+      setSavedCoin(false);
+    } else {
       await updateDoc(coinPath, {
         watchList: arrayUnion({
           id: coin.id,
@@ -23,14 +39,27 @@ const CoinItem = ({ coin }) => {
           symbol: coin.symbol,
         }),
       });
-    } else {
-      alert("Please sign in to save a coin to your watch list");
+      setSavedCoin(true);
     }
+  };
+
+  const removeCoin = async (e) => {
+    e.preventDefault();
+    await updateDoc(coinPath, {
+      watchList: arrayRemove({
+        id: coin.id,
+        name: coin.name,
+        image: coin.image,
+        rank: coin.market_cap_rank,
+        symbol: coin.symbol,
+      }),
+    });
+    setSavedCoin(false);
   };
 
   return (
     <tr className="h-[80px] border-b overflow-hidden">
-      <td onClick={saveCoin}>
+      <td onClick={savedCoin ? removeCoin : saveCoin}>
         {savedCoin ? (
           <AiFillStar className=" text-[#ffe600]" />
         ) : (
@@ -40,10 +69,7 @@ const CoinItem = ({ coin }) => {
       <td>{coin.market_cap_rank}</td>
       <td>
         <Link to={`/coin/${coin.id}`}>
-          <div
-            className="flex items
-        "
-          >
+          <div className="flex items">
             <img className="w-6 mr-2 rounded-full" src={coin.image} alt="id" />
             <p className="hidden sm:table-cell">{coin.name}</p>
           </div>

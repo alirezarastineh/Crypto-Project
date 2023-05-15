@@ -6,7 +6,7 @@ import { UserAuth } from "../context/AuthContext";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [setError] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { signIn } = UserAuth();
 
@@ -25,6 +25,7 @@ const SignIn = () => {
     <div>
       <div className="max-w-[400px] mx-auto min-h-[600px] px-4 py-20">
         <h1 className="text-2xl font-bold">Sign In</h1>
+        {error ? <p className="bg-red-300 p-3 my-2">{error}</p> : null}
         <form onSubmit={handleSubmit}>
           <div className="my-4">
             <label>Email</label>

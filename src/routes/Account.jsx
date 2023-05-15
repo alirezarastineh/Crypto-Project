@@ -1,18 +1,10 @@
 import React from "react";
 import SavedCoin from "../components/SavedCoin";
 import { UserAuth } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Account = () => {
-  const { user, logOut } = UserAuth();
-  const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (e) {}
-  };
+  const { user } = UserAuth();
 
   if (user) {
     return (
@@ -23,14 +15,6 @@ const Account = () => {
             <div>
               <p>Welcome, {user?.email}</p>
             </div>
-          </div>
-          <div>
-            <button
-              onClick={handleSignOut}
-              className="border px-6 py-2 rounded-2xl shadow-lg hover:shadow-2xl"
-            >
-              Sign Out
-            </button>
           </div>
         </div>
         <div className="flex justify-between items-center my-12 py-8 rounded-div">
