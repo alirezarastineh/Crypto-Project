@@ -85,7 +85,7 @@ const CoinItem = ({ coin }) => {
     <tr className="h-[80px] border-b overflow-hidden">
       <td onClick={savedCoin ? removeCoin : saveCoin}>
         {savedCoin ? (
-          <AiFillStar className=" text-[#ffe601]" />
+          <AiFillStar className=" text-[#ffe600]" />
         ) : (
           <AiOutlineStar />
         )}
