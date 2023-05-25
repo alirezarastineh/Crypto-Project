@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  arrayRemove,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
@@ -56,6 +62,24 @@ const CoinItem = ({ coin }) => {
     });
     setSavedCoin(false);
   };
+
+  useEffect(() => {
+    const getWatchList = async () => {
+      if (!user?.email) return;
+
+      const docRef = doc(db, "users", `${user?.email}`);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const watchList = docSnap.data().watchList;
+        if (watchList.some((savedCoin) => savedCoin.id === coin.id)) {
+          setSavedCoin(true);
+        }
+      }
+    };
+
+    getWatchList();
+  }, [user?.email, coin.id]);
 
   return (
     <tr className="h-[80px] border-b overflow-hidden">
