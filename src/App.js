@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./routes/Home";
+import Crypto from "./routes/Crypto";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import Account from "./routes/Account";
@@ -27,7 +27,7 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home coins={coins} />} />
+          <Route path="/" element={<Crypto coins={coins} />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/account" element={<Account />} />
@@ -37,7 +37,6 @@ function App() {
         </Routes>
         <Footer />
       </AuthContextProvider>
-      0
     </ThemeProvider>
   );
 }

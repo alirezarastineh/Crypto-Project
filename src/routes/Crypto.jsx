@@ -2,7 +2,7 @@ import React from "react";
 import CoinSearch from "../components/CoinSearch";
 import Trending from "../components/Trending";
 
-const Home = ({ coins }) => {
+const Crypto = ({ coins }) => {
   return (
     <div>
       <CoinSearch coins={coins} />
@@ -11,4 +11,4 @@ const Home = ({ coins }) => {
   );
 };
 
-export default Home;
+export default Crypto;

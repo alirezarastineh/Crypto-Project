@@ -18,7 +18,7 @@ const CoinItem = ({ coin }) => {
 
   const coinPath = doc(db, "users", `${user?.email}`);
 
-  const saveCoin = async (a) => {
+  const saveCoin = async () => {
     if (!user?.email) {
       alert("Please sign in to save a coin to your watch list");
       return;
@@ -65,7 +65,10 @@ const CoinItem = ({ coin }) => {
 
   useEffect(() => {
     const getWatchList = async () => {
-      if (!user?.email) return;
+      if (!user?.email) {
+        setSavedCoin(false); // reset savedCoin state when user logs out
+        return;
+      }
 
       const docRef = doc(db, "users", `${user?.email}`);
       const docSnap = await getDoc(docRef);
