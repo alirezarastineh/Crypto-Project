@@ -11,16 +11,18 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+import Modal from "react-modal";
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { user } = UserAuth();
 
   const coinPath = doc(db, "users", `${user?.email}`);
 
   const saveCoin = async () => {
     if (!user?.email) {
-      alert("Please sign in to save a coin to your watch list");
+      setShowModal(true); // show modal instead of alert
       return;
     }
 
@@ -94,7 +96,7 @@ const CoinItem = ({ coin }) => {
         )}
       </td>
       <td>{coin.market_cap_rank}</td>
-      <td>
+      <td className="hover:scale-105 ease-in-out duration-300">
         <Link to={`/coin/${coin.id}`}>
           <div className="flex items">
             <img className="w-6 mr-2 rounded-full" src={coin.image} alt="id" />
@@ -126,6 +128,17 @@ const CoinItem = ({ coin }) => {
           <SparklinesLine color="teal" />
         </Sparklines>
       </td>
+
+      {/* Modal component */}
+      <Modal
+        className="rounded-div flex items-center justify-center h-20 font-bold transition-opacity fixed inset-x-0 top-1/4"
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+      >
+        <div className="animate-bounce bg-button text-btnText px-5 py-2 ml-2 rounded-2xl shadow-lg hover:shadow-2xl">
+          Please sign in to save a coin into your watch list
+        </div>
+      </Modal>
     </tr>
   );
 };

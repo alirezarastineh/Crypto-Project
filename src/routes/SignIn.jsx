@@ -17,15 +17,25 @@ const SignIn = () => {
       await signIn(email, password);
       navigate("/account");
     } catch (e) {
-      setError(e.message);
+      if (e.code === "auth/user-not-found") {
+        setError("There are no accounts available with this email address");
+      }
+      if (e.code === "auth/wrong-password") {
+        setError("Wrong password");
+      }
     }
+    // setError(e.message);
   };
 
   return (
     <div>
       <div className="max-w-[400px] mx-auto min-h-[600px] px-4 py-20">
         <h1 className="text-2xl font-bold">Sign In</h1>
-        {error ? <p className="bg-red-300 p-3 my-2">{error}</p> : null}
+        {error ? (
+          <p className="bg-red-300 p-3 my-2 border border-input rounded-2xl font-bold text-center">
+            {error}
+          </p>
+        ) : null}
         <form onSubmit={handleSubmit}>
           <div className="my-4">
             <label>Email</label>

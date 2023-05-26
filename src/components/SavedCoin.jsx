@@ -33,7 +33,7 @@ const SavedCoin = () => {
           watch list. Click <Link to="/">here</Link> to search coins.
         </p>
       ) : (
-        <table className="w-full border-collapse text-center">
+        <table className="w-full border-collapse text-center ">
           <thead>
             <tr className="border-b">
               <th className="px-4">Rank #</th>
@@ -45,7 +45,7 @@ const SavedCoin = () => {
             {coins?.map((coin) => (
               <tr key={coin.id} className="h-[60px] overflow-hidden">
                 <td>{coin?.rank}</td>
-                <td>
+                <td className="hover:scale-105 ease-in-out duration-300">
                   <Link to={`/coin/${coin.id}`}>
                     <div className="flex items-center">
                       <img src={coin?.image} className="w-8 mr-4" alt="/" />
