@@ -1,30 +1,16 @@
 import React, { useState } from "react";
 import { AiFillLock, AiOutlineMail } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const { signUp } = UserAuth();
+  const { signUp, error } = UserAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
-    try {
-      await signUp(email, password);
-      navigate("/");
-    } catch (e) {
-      if (e.code === "auth/email-already-in-use") {
-        setError("An account with this email already exists");
-      }
-      if (e.code === "auth/weak-password") {
-        setError("Weak password. At least 6 characters required");
-      }
-    }
-    // setError(e.message);
+    signUp(email, password);
   };
 
   return (

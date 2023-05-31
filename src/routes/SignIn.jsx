@@ -18,13 +18,14 @@ const SignIn = () => {
       navigate("/account");
     } catch (e) {
       if (e.code === "auth/user-not-found") {
-        setError("There are no accounts available with this email address");
+        setError(
+          "There are no accounts available with this email address. Please check your email or sign up"
+        );
       }
       if (e.code === "auth/wrong-password") {
         setError("Wrong password");
       }
     }
-    // setError(e.message);
   };
 
   return (
