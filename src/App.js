@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "./context/ThemeContext";
-import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
+import axios from "axios";
+import { ThemeProvider } from "./context/ThemeContext";
+import { AuthContextProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
 import Crypto from "./routes/Crypto";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import Account from "./routes/Account";
-import axios from "axios";
 import CoinPage from "./routes/CoinPage";
 import Footer from "./components/Footer";
-import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   const [coins, setCoins] = useState([]);

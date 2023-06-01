@@ -1,7 +1,7 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import SavedCoin from "../components/SavedCoin";
 import { UserAuth } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
 
 const Account = () => {
   const { user } = UserAuth();

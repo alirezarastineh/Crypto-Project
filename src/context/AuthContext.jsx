@@ -1,13 +1,16 @@
 import { useState, useEffect, useContext, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+
+// This code handles user authentication using Firebase and provides the necessary function
+// and data for managing user sign-up, sign-in, and sign-out operations.
 
 const UserContext = createContext();
 
@@ -25,9 +28,10 @@ export const AuthContextProvider = ({ children }) => {
       );
 
       await setDoc(doc(db, "users", email), {
+        // if successful, creates a document in the Firestore database for the new user.
         watchList: [],
       });
-      setUser(coinUser.user);
+      setUser(coinUser.user); // update the user state with the newly created user
       navigate("/account");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -48,10 +52,11 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      // It takes a callback function that will be executed whenever the authentication state changes
       setUser(currentUser);
     });
     return () => {
-      unsubscribe();
+      unsubscribe(); // It ensures that the component unsubscribes from the authentication state changes when it unmounts
     };
   }, []);
   return (
@@ -61,6 +66,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
+// This allows other components to access the authentication-related data and functions provided by the AuthContextProvider.
 export const UserAuth = () => {
   return useContext(UserContext);
 };

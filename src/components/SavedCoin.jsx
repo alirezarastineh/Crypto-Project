@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import { onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
+
+// displaying and managing a user's saved coins
 
 const SavedCoin = () => {
   const [coins, setCoins] = useState([]);
   const { user } = UserAuth();
 
+  // fetch the user's saved coins from the Firebase Firestore database when the component mounts or when the "user.email" value changes
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
       setCoins(doc.data()?.watchList);
@@ -18,7 +21,7 @@ const SavedCoin = () => {
   const coinPath = doc(db, "users", `${user?.email}`);
   const deleteCoin = async (passedid) => {
     try {
-      const result = coins.filter((item) => item.id !== passedid);
+      const result = coins.filter((item) => item.id !== passedid); // makes a new list called "result" that doesn't include the coin you want to remove
       await updateDoc(coinPath, {
         watchList: result,
       });
@@ -30,7 +33,14 @@ const SavedCoin = () => {
       {coins?.length === 0 ? (
         <p>
           You don't have any coins saved. Please save a coin to add it to your
-          watch list. Click <Link to="/">here</Link> to search coins.
+          watch list. Click{" "}
+          <Link
+            to="/"
+            className="bg-button text-btnText rounded shadow-lg hover:shadow-2xl"
+          >
+            here
+          </Link>{" "}
+          to search coins.
         </p>
       ) : (
         <table className="w-full border-collapse text-center ">

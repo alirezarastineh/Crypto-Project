@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { FaTwitter, FaFacebook, FaReddit, FaGithub } from "react-icons/fa";
 import DOMPurify from "dompurify";
-import { useParams } from "react-router-dom";
+
+// fetches cryptocurrency data from the API based on the "coinId" parameter extracted from the UR
 
 const CoinPage = () => {
-  const [coin, setCoin] = useState({});
-  const params = useParams();
+  const [coin, setCoin] = useState({}); // allows the component to manage and update the state of the fetched cryptocurrency data.
+  const params = useParams(); // access to the parameters defined in the route of the application
 
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}?localization=false&sparkline=true`;
 

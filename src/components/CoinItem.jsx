@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import { UserAuth } from "../context/AuthContext";
+import Modal from "react-modal";
 import { db } from "../firebase";
 import {
   arrayUnion,
@@ -11,64 +11,56 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import Modal from "react-modal";
+import { UserAuth } from "../context/AuthContext";
+
+// This code displays information about cryptocurrency coins in a table row. It allows users to save or remove coins from their
+// watchlist. If the user is not authenticated, a modal dialog prompts them to sign in or sign up.
+// This component can be used to render individual coin items in a cryptocurrency tracking application.
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { user } = UserAuth();
 
-  const coinPath = doc(db, "users", `${user?.email}`);
+  const coinPath = doc(db, "users", `${user?.email}`); // "?" is for  optional chaining to prevent errors if the user object or email property is undefined
 
-  const saveCoin = async () => {
+  // This code manages a user's coin watchlist by allowing them to add or remove coins. It checks the user's email,
+  // updates a database document accordingly, and tracks the saved state using the savedCoin variable.
+
+  const updateWatchList = async (e) => {
+    e.preventDefault();
+
     if (!user?.email) {
-      setShowModal(true); // show modal instead of alert
+      setShowModal(true);
       return;
     }
 
+    const coinData = {
+      id: coin.id,
+      name: coin.name,
+      image: coin.image,
+      rank: coin.market_cap_rank,
+      symbol: coin.symbol,
+    };
+
     if (savedCoin) {
       await updateDoc(coinPath, {
-        watchList: arrayRemove({
-          id: coin.id,
-          name: coin.name,
-          image: coin.image,
-          rank: coin.market_cap_rank,
-          symbol: coin.symbol,
-        }),
+        watchList: arrayRemove(coinData),
       });
       setSavedCoin(false);
     } else {
       await updateDoc(coinPath, {
-        watchList: arrayUnion({
-          id: coin.id,
-          name: coin.name,
-          image: coin.image,
-          rank: coin.market_cap_rank,
-          symbol: coin.symbol,
-        }),
+        watchList: arrayUnion(coinData),
       });
       setSavedCoin(true);
     }
   };
 
-  const removeCoin = async (e) => {
-    e.preventDefault();
-    await updateDoc(coinPath, {
-      watchList: arrayRemove({
-        id: coin.id,
-        name: coin.name,
-        image: coin.image,
-        rank: coin.market_cap_rank,
-        symbol: coin.symbol,
-      }),
-    });
-    setSavedCoin(false);
-  };
-
+  // fetch the user's watch list and checking if the current coin is already saved in the watch list
   useEffect(() => {
     const getWatchList = async () => {
       if (!user?.email) {
-        setSavedCoin(false); // reset savedCoin state when user logs out
+        setSavedCoin(false);
         return;
       }
 
@@ -77,7 +69,7 @@ const CoinItem = ({ coin }) => {
 
       if (docSnap.exists()) {
         const watchList = docSnap.data().watchList;
-        if (watchList.some((savedCoin) => savedCoin.id === coin.id)) {
+        if (watchList.find((savedCoin) => savedCoin.id === coin.id)) {
           setSavedCoin(true);
         }
       }
@@ -88,7 +80,7 @@ const CoinItem = ({ coin }) => {
 
   return (
     <tr className="h-[80px] border-b overflow-hidden">
-      <td onClick={savedCoin ? removeCoin : saveCoin}>
+      <td onClick={updateWatchList}>
         {savedCoin ? (
           <AiFillStar className=" text-[#ffe600]" />
         ) : (
