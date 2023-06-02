@@ -90,7 +90,7 @@ const CoinItem = ({ coin }) => {
       <td>{coin.market_cap_rank}</td>
       <td className="hover:scale-105 ease-in-out duration-300">
         <Link to={`/coin/${coin.id}`}>
-          <div className="flex items">
+          <div className="flex items justify-center">
             <img className="w-6 mr-2 rounded-full" src={coin.image} alt="id" />
             <p className="hidden sm:table-cell">{coin.name}</p>
           </div>
