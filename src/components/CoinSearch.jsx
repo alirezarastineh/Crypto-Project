@@ -8,22 +8,22 @@ const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState(""); // holds the current value of the search input field
   return (
     <div className="rounded-div my-4">
-      <div className="flex flex-col md:flex-row justify-between pt-4 pb-6 text-center md:text-right ">
+      <div className="flex flex-col md:flex-row justify-between pt-4 pb-6 text-center md:text-right">
         <h1 className="text-2xl font-bold my-2 ">Search Crypto</h1>
         <form>
           <input
             onChange={(e) => setSearchText(e.target.value)} // updates the searchText state variable whenever the value of the input changes
-            className="w-full bg-primary border border-input px-4 py-2 rounded-2xl shadow-xl "
+            className="w-full bg-primary border border-input px-4 py-2 rounded-2xl shadow-xl"
             type="text"
             placeholder="Search a coin"
           />
         </form>
       </div>
-      <table className="w-full border-collapse text-center ">
+      <table className="w-full border-collapse text-center">
         <thead>
           <tr className="border-b">
-            <th className="text-left">Watch List</th>
-            <th className="px-4">#</th>
+            <th></th>
+            <th className="px-4">Rank</th>
             <th className="text-center">Coin</th>
             <th>Symbol</th>
             <th>Price</th>
@@ -39,7 +39,8 @@ const CoinSearch = ({ coins }) => {
               if (searchText === "") {
                 return value;
               } else if (
-                value.name.toLowerCase().includes(searchText.toLowerCase())
+                value.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                value.symbol.toLowerCase().includes(searchText.toLowerCase())
               ) {
                 return value;
               } else {

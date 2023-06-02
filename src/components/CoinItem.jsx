@@ -89,6 +89,7 @@ const CoinItem = ({ coin }) => {
       </td>
       <td>{coin.market_cap_rank}</td>
       <td className="hover:scale-105 ease-in-out duration-300">
+        {/*make it dynamic for details page */}
         <Link to={`/coin/${coin.id}`}>
           <div className="flex items justify-center">
             <img className="w-6 mr-2 rounded-full" src={coin.image} alt="id" />
@@ -121,7 +122,6 @@ const CoinItem = ({ coin }) => {
         </Sparklines>
       </td>
 
-      {/* Modal component */}
       <Modal
         className="rounded-div flex items-center justify-center h-20 font-bold transition-opacity fixed inset-x-0 top-1/4"
         isOpen={showModal}

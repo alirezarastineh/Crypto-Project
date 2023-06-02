@@ -11,6 +11,7 @@ const CoinPage = () => {
   const [coin, setCoin] = useState({}); // allows the component to manage and update the state of the fetched cryptocurrency data.
   const params = useParams(); // access to the parameters defined in the route of the application
 
+  // original API before make it dynamic: https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&sparkline=true
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}?localization=false&sparkline=true`;
 
   useEffect(() => {
