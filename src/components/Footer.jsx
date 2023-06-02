@@ -59,7 +59,17 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-center py-4">Powered by Coin Gecko</p>
+      <p className="text-center py-4">
+        Powered by
+        <a
+          className="bg-button text-btnText rounded shadow-lg hover:shadow-2xl font-bold"
+          href="https://www.coingecko.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Coin Gecko
+        </a>
+      </p>
     </div>
   );
 };
