@@ -32,7 +32,7 @@ export const AuthContextProvider = ({ children }) => {
         watchList: [],
       });
       setUser(coinUser.user); // update the user state with the newly created user
-      navigate("/account");
+      navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("An account with this email already exists");
@@ -50,6 +50,7 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // check if the user is authenticated
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       // It takes a callback function that will be executed whenever the authentication state changes

@@ -30,6 +30,7 @@ const Navbar = () => {
         <ThemeToggle />
       </div>
 
+      {/*changing Navbar according to users. If singed in or not */}
       {user?.email ? (
         <div className="hidden md:flex md:items-center">
           <Link
@@ -92,6 +93,7 @@ const Navbar = () => {
           </li>
         </ul>
 
+        {/*changing Navbar according to users. If singed in or not */}
         {user?.email ? (
           <div className="flex flex-col w-full p-4">
             <button

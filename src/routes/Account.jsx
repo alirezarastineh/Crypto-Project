@@ -26,7 +26,7 @@ const Account = () => {
       </div>
     );
   } else {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/signin" />; // protected page
   }
 };
 

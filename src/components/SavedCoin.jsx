@@ -21,6 +21,7 @@ const SavedCoin = () => {
   const coinPath = doc(db, "users", `${user?.email}`);
   const deleteCoin = async (passedid) => {
     try {
+      // we take the entire array and manipulate and filter it, remove what we want to remove and then push it entirely back to firebase
       const result = coins.filter((item) => item.id !== passedid); // makes a new list called "result" that doesn't include the coin you want to remove
       await updateDoc(coinPath, {
         watchList: result,
@@ -56,6 +57,7 @@ const SavedCoin = () => {
               <tr key={coin.id} className="h-[60px] overflow-hidden">
                 <td>{coin?.rank}</td>
                 <td className="hover:scale-105 ease-in-out duration-300 justify-center">
+                  {/*dynamic to details page*/}
                   <Link to={`/coin/${coin.id}`}>
                     <div className="flex items-center">
                       <img src={coin?.image} className="w-8 mr-4" alt="/" />

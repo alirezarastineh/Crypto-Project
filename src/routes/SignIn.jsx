@@ -16,13 +16,13 @@ const SignIn = () => {
     try {
       await signIn(email, password);
       navigate("/account");
-    } catch (e) {
-      if (e.code === "auth/user-not-found") {
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
         setError(
           "There are no accounts available with this email address. Please check your email or sign up"
         );
       }
-      if (e.code === "auth/wrong-password") {
+      if (error.code === "auth/wrong-password") {
         setError("Wrong password");
       }
     }
