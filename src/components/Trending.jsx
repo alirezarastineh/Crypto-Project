@@ -23,6 +23,7 @@ const Trending = () => {
             className="rounded-div flex justify-between p-4 hover:scale-105 ease-in-out duration-300"
           >
             <div className="flex w-full items-center justify-between">
+              {/*dynamic to details page */}
               <Link to={`/coin/${coin.item.id}`}>
                 <div className="flex">
                   <img
