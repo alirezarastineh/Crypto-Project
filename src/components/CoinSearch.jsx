@@ -4,6 +4,7 @@ import CoinItem from "./CoinItem";
 //  defines a search component for cryptocurrency coins. It allows users to search for specific coins based on their name.
 // The filtered coins are rendered using the "CoinItem" component
 
+//  receives the coins data as a prop "({ coins })" and uses it to filter and render the "CoinItem" components based on the search input "(searchText)".
 const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState(""); // holds the current value of the search input field
   return (

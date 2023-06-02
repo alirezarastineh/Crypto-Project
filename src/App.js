@@ -27,6 +27,7 @@ function App() {
       <AuthContextProvider>
         <Navbar />
         <Routes>
+          {/* passes the "coins" data as props to the "<Crypto />" component */}
           <Route path="/" element={<Crypto coins={coins} />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

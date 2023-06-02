@@ -24,7 +24,7 @@ const CoinItem = ({ coin }) => {
 
   const coinPath = doc(db, "users", `${user?.email}`); // "?" is for  optional chaining to prevent errors if the user object or email property is undefined
 
-  // This code manages a user's coin watchlist by allowing them to add or remove coins. It checks the user's email,
+  // This part manages a user's coin watchlist by allowing them to add or remove coins. It checks the user's email,
   // updates a database document accordingly, and tracks the saved state using the savedCoin variable.
 
   const updateWatchList = async (e) => {

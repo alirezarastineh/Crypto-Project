@@ -14,6 +14,7 @@ const CoinPage = () => {
   // original API before make it dynamic: https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&sparkline=true
   const url = `https://api.coingecko.com/api/v3/coins/${params.coinId}?localization=false&sparkline=true`;
 
+  // The fetched data is stored in useState
   useEffect(() => {
     axios.get(url).then((response) => {
       setCoin(response.data);

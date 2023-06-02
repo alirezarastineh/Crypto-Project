@@ -7,6 +7,8 @@ const Trending = () => {
 
   const url = "https://api.coingecko.com/api/v3/search/trending";
 
+  // The fetched data is stored in useState
+  // trending state variable is updated with the fetched data using the setTrending function
   useEffect(() => {
     axios.get(url).then((response) => {
       setTrending(response.data.coins);
