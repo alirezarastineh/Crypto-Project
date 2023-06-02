@@ -63,25 +63,31 @@ const Navbar = () => {
       )}
 
       <div onClick={handleNav} className="block md:hidden cursor-pointer z-10">
-        {nav ? <AiOutlineClose size={25} /> : <AiOutlineMenu size={20} />}
+        {nav ? <AiOutlineClose size={25} /> : <AiOutlineMenu size={25} />}
       </div>
 
       {/* Mobile Navbar */}
       <div
         className={
           nav
-            ? "md:hidden fixed left-0 top-20 flex flex-col items-center justify-between w-full h-[90%] bg-primary ease-in-out duration-500 z-10"
-            : "fixed left-[-100%] top-20 h-[90%] flex flex-col items-center justify-between ease-in-out duration-500"
+            ? "md:hidden fixed right-0 top-20 flex flex-col items-center justify-between w-full h-[90%] bg-primary ease-in-out duration-500 z-10"
+            : "fixed right-[-100%] top-20 h-[90%] flex flex-col items-center justify-between ease-in-out duration-500"
         }
       >
         <ul className="w-full p-4">
-          <li onClick={handleNav} className="border-b py-6 hover:text-accent">
+          <li
+            onClick={handleNav}
+            className="border-b py-6 hover:text-accent text-right"
+          >
             <Link to="/">Home</Link>
           </li>
-          <li onClick={handleNav} className="border-b py-6 hover:text-accent">
+          <li
+            onClick={handleNav}
+            className="border-b py-6 hover:text-accent text-right"
+          >
             <Link to="/account">Account</Link>
           </li>
-          <li className="border-b py-6 hover:text-accent">
+          <li className="border-b py-6 hover:text-accent flex justify-end">
             <ThemeToggle />
           </li>
         </ul>
