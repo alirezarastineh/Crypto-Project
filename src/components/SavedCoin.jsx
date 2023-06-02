@@ -34,13 +34,13 @@ const SavedCoin = () => {
       {coins?.length === 0 ? (
         <p>
           You don't have any coins saved. Please save a coin to add it to your
-          watch list. Click{" "}
+          watch list. Click
           <Link
             to="/"
             className="bg-button text-btnText rounded shadow-lg hover:shadow-2xl"
           >
             here
-          </Link>{" "}
+          </Link>
           to search coins.
         </p>
       ) : (
