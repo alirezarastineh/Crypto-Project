@@ -5,7 +5,7 @@ import { Sparklines, SparklinesLine } from "react-sparklines";
 import { FaTwitter, FaFacebook, FaReddit, FaGithub } from "react-icons/fa";
 import DOMPurify from "dompurify";
 
-// fetches cryptocurrency data from the API based on the "coinId" parameter extracted from the UR
+// fetches cryptocurrency data from the API based on the "coinId" parameter extracted from the URL
 
 const CoinPage = () => {
   const [coin, setCoin] = useState({}); // allows the component to manage and update the state of the fetched cryptocurrency data.
