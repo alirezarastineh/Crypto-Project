@@ -15,7 +15,7 @@ import { UserAuth } from "../context/AuthContext";
 
 // This code displays information about cryptocurrency coins in a table row. It allows users to save or remove coins from their
 // watchlist. If the user is not authenticated, a modal dialog prompts them to sign in or sign up.
-// This component can be used to render individual coin items in a cryptocurrency tracking application.
+// This component can be used to render individual coin items in a cryptocurrency tracking application
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
